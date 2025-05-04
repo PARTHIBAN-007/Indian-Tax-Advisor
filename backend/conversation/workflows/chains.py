@@ -28,7 +28,7 @@ def get_response_chain():
 
     return prompt | model
 
-def get_context_summary_chain(summary:str =""):
+def get_conversation_summary_chain(summary:str =""):
     model = get_chat_model(model_name = settings.GROQ_LLM_MODEL_CONTEXT_SUMMARY)
     
 
