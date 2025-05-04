@@ -16,9 +16,9 @@ retriever_node = ToolNode(tools)
 
 async def conversation_node(state:AdvisorState,config:RunnableConfig):
     summary = state.get("summary","")
-    conversation_node = get_response_chain()
+    conversation_chain = get_response_chain()
 
-    response = await conversation_node.ainvoke(
+    response = await conversation_chain.ainvoke(
         {   
             "messages":state["messages"],
             "summary":summary
@@ -67,3 +67,21 @@ async def summarize_context_node(state:AdvisorState,config:RunnableConfig):
 
 async def connector_node(state: AdvisorState):
     return {}
+
+
+async def generate_response(state:AdvisorState,config:RunnableConfig):
+    user_chat_history = state["user_chat_history"]
+    web_search_results = state["web_search_results"]
+
+    conversation_chain = get_response_chain()
+
+
+    response = conversation_chain.ainvoke(
+        {
+            "user_chat_history":user_chat_history,
+            "web_search_results":web_search_results
+        },
+        config
+    )
+
+    return {"messages":response}
