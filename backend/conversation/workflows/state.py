@@ -14,3 +14,5 @@ class AdvisorState(MessagesState):
     summary : str 
     num_iterations:int
     max_iterations:int 
+    web_tool:bool
+    db_tool: bool
