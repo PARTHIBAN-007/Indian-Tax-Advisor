@@ -10,9 +10,11 @@ from workflows.chains import (
 
 from workflows.state import AdvisorState
 
-from workflows.tools import tools
+from workflows.tools import retriever_tools , web_search_tools
 
-retriever_node = ToolNode(tools)
+retriever_node = ToolNode(retriever_tools)
+
+web_retriever_node = ToolNode(web_search_tools)
 
 async def conversation_node(state:AdvisorState,config:RunnableConfig):
     summary = state.get("summary","")

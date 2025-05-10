@@ -16,4 +16,6 @@ class Settings(BaseSettings):
     RAG_TOP_K:int =5
     RAG_CHUNK_SIZE:int = 256
 
+    QDRANT_CLIENT_PATH:str = "Long Term Memory"
+
 settings = Settings()
