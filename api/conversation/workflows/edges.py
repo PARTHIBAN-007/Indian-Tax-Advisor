@@ -1,5 +1,5 @@
 from langgraph.graph import END
-from backend.config import settings
+from api.config import settings
 from state import AdvisorState
 def should_summarize_conversation(state: AdvisorState):
     messages = state['messages']

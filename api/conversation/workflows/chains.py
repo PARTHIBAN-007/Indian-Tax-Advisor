@@ -1,9 +1,9 @@
 from langchain_groq import ChatGroq
 from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
-from backend.config import settings
+from api.config import settings
 
-from backend.domain.prompts import SYSTEM_PROMPT ,CONTEXT_SUMMARY_PROMPT,EXTEND_CONTEXT_SUMMARY_PROMPT
-from backend.conversation.workflows.tools import tools
+from api.domain.prompts import SYSTEM_PROMPT ,CONTEXT_SUMMARY_PROMPT,EXTEND_CONTEXT_SUMMARY_PROMPT
+from api.conversation.workflows.tools import tools
 def get_chat_model(temperature: float=0.7,model_name:str = settings.GROQ_LLM_MODEL)->ChatGroq:
     return ChatGroq(
         api_key = settings.GROQ_API_KEY,

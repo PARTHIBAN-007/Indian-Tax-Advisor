@@ -2,7 +2,7 @@ from loguru import logger
 from pymongo import MongoClient
 
 
-from backend.config import settings
+from api.config import settings
 
 async def reset_conversation_chain()->dict:
     try:

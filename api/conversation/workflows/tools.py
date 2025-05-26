@@ -1,9 +1,9 @@
 from langchain.agents import Tool
 from langchain_community.tools import TavilySearchResults
 from langchain_community.tools import DuckDuckGoSearchRun
-from backend.rag.retreivers import get_retriever
+from api.rag.retreivers import get_retriever
 from langchain.tools.retriever import create_retriever_tool
-from backend.config import settings
+from api.config import settings
 tools = [TavilySearchResults()]
 
 retriever = get_retriever(

@@ -1,7 +1,7 @@
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_qdrant import QdrantVectorStore
 from langchain.vectorstores import Qdrant
-from backend.config import settings
+from api.config import settings
 from rag.embeddings import get_embedding_model
 def get_retriever(
         embedding_model_id: str,

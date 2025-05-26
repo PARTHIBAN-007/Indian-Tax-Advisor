@@ -1,7 +1,7 @@
 from langchain_core.messages import RemoveMessage
 from langchain_core.runnables import RunnableConfig
 from langgraph.prebuilt import ToolNode
-from backend.config import settings
+from api.config import settings
 from workflows.chains import (
     get_response_chain,
     get_context_summary_chain,
