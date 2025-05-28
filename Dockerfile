@@ -1,0 +1,13 @@
+FROM python:3.11-slim
+
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
+
+WORKDIR /app
+
+COPY uv.lock pyproject.toml README.md ./
+RUN uv sync --frozen --no-cache
+
+COPY src/philoagents philoagents/
+COPY tools tools/
+
+CMD ["/app/.venv/bin/fastapi", "run", "philoagents/infrastructure/api.py", "--port", "8000", "--host", "0.0.0.0"]
