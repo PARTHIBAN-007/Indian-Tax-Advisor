@@ -17,16 +17,7 @@ def get_retriever(
     k: int = 3,
     device: str = "cpu",
 ) -> Retriever:
-    """Creates and returns a hybrid search retriever with the specified embedding model.
-
-    Args:
-        embedding_model_id (str): The identifier for the embedding model to use.
-        k (int, optional): Number of documents to retrieve. Defaults to 3.
-        device (str, optional): Device to run the embedding model on. Defaults to "cpu".
-
-    Returns:
-        Retriever: A configured hybrid search retriever.
-    """
+    
     logger.info(
         f"Initializing retriever | model: {embedding_model_id} | device: {device} | top_k: {k}"
     )
@@ -39,16 +30,7 @@ def get_retriever(
 def get_hybrid_search_retriever(
     embedding_model: HuggingFaceEmbeddings, k: int
 ) -> MongoDBAtlasHybridSearchRetriever:
-    """Creates a MongoDB Atlas hybrid search retriever with the given embedding model.
-
-    Args:
-        embedding_model (HuggingFaceEmbeddings): The embedding model to use for vector search.
-        k (int): Number of documents to retrieve.
-
-    Returns:
-        MongoDBAtlasHybridSearchRetriever: A configured hybrid search retriever using both
-            vector and text search capabilities.
-    """
+    
     vectorstore = MongoDBAtlasVectorSearch.from_connection_string(
         connection_string=settings.MONGO_URI,
         embedding=embedding_model,
