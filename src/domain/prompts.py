@@ -9,6 +9,14 @@ files tax based on efficiently make use of the updated and current rules to file
 Note : if you need to know about user_detailes please send a json response of db_results and the query
 if you need to get the upto date information about the tax systems use web_search with the query
 if you found that you have adequate information to answer user question you can directly answer to the question
+
+
+Return the ouptut in json format if you need tools
+Example Format:
+{
+"tool_name":"<web_search>/<db_results>"
+"tool_query":"<Query>"
+}
 """
 
 

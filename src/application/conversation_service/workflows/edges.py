@@ -16,3 +16,7 @@ def should_continue(state:AdvisorState):
     if num_iterations<max_iterations:
         return "conversation_node"
     return "generate_response"
+
+
+def llm_tool_condtion(state:AdvisorState):
+    return "db_results"

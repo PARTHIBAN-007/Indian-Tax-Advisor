@@ -1,6 +1,7 @@
 from langgraph.graph import START , END , StateGraph
 from langgraph.prebuilt import tools_condition
 from application.conversation_service.workflows.state import AdvisorState
+from application.conversation_service.workflows.edges import llm_tool_condition
 
 from application.conversation_service.workflows.nodes import (
     conversation_node,
@@ -22,7 +23,7 @@ def create_workflow_graph():
     graph_builder.add_edge(START,"conversation_node")
     graph_builder.add_conditional_edges(
         "conversation_node",
-        tools_condition,
+        llm_tool_condition,
         {
             "db_results":"retrieve_user_context",
             "web_results":"web_retriever_node",
