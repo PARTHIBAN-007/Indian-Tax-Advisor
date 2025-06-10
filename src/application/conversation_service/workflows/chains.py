@@ -1,11 +1,12 @@
 from langchain_groq import ChatGroq
 from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
 from config import settings
-
+from loguru import logger
 from domain.prompts import SYSTEM_PROMPT ,CONTEXT_SUMMARY_PROMPT,EXTEND_CONTEXT_SUMMARY_PROMPT
-from application.conversation_service.workflows.tools import tools
+from application.conversation_service.workflows.tools import tool_node
 
 def get_chat_model(temperature: float=0.7,model_name:str = settings.GROQ_LLM_MODEL)->ChatGroq:
+    logger.info("Chat Model ")
     return ChatGroq(
         api_key = settings.GROQ_API_KEY,
         model_name=model_name,
@@ -15,8 +16,9 @@ def get_chat_model(temperature: float=0.7,model_name:str = settings.GROQ_LLM_MOD
 
 
 def get_response_chain():
+    logger.info("Response chain")
     model = get_chat_model()
-    model = model.bind_tools(tools)
+    model_with_tools = model.bind_tools(tool_node)
 
     system_message = SYSTEM_PROMPT
     prompt = ChatPromptTemplate.from_messages(
@@ -26,10 +28,12 @@ def get_response_chain():
         ],
         template_format="jinja2"
     )
+    print(prompt)
 
-    return prompt | model
+    return prompt | model_with_tools
 
 def get_conversation_summary_chain(summary:str =""):
+    logger.info("Conversation Summary chain")
     model = get_chat_model(model_name = settings.GROQ_LLM_MODEL_CONTEXT_SUMMARY)
     
 
@@ -46,10 +50,11 @@ def get_conversation_summary_chain(summary:str =""):
     return prompt | model   
 
 def get_context_summary_chain():
+    logger.info("Retriever Summary chain")
     model = get_chat_model(model_name=settings.GROQ_LLM_MODEL_CONTEXT_SUMMARY)
     prompt = ChatPromptTemplate.from_messages(
         [
-            ("human", CONTEXT_SUMMARY_PROMPT.prompt),
+            ("human", CONTEXT_SUMMARY_PROMPT),
         ],
         template_format="jinja2",
     )

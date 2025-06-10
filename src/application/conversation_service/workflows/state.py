@@ -11,8 +11,5 @@ class AdvisorState(MessagesState):
     user_query:str = None
     web_search_results: str = None
     user_chat_history:str = None
-    summary : str 
-    num_iterations:int
-    max_iterations:int 
-    web_tool:bool
-    db_tool: bool
+    summary : str = None
+

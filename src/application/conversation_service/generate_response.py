@@ -61,15 +61,11 @@ async def get_response(
             checkpoint_collection_name = settings.MONGO_STATE_CHECKPOINT_COLLECTION,
             writes_collection_name = settings.MONGO_STATE_WRITES_COLLECTION
         ) as checkpointer:
-            logger.info("--------------Connecting MongoDB-------------------")
-            logger.info("-------------------opik tracer------------------")
-            logger.info("-------------------opik tracer------------------")
+            
 
             graph = graph_builder.compile(checkpointer=checkpointer)
             opik_tracer = OpikTracer(graph=graph.get_graph(xray=True))            
-            logger.info("opik tracer")
-            graph = graph_builder.compile(checkpointer=checkpointer)
-            logger.info("grpg")
+        
             thread_id = uuid.uuid4
             config = {
                 "configurable" : {"thread_id":thread_id},
@@ -82,6 +78,12 @@ async def get_response(
                 },
                 config = config
             )
+
+            
+
+
+
+
             logger.info("_------------------OUptut-----------------------",output_state)
 
         last_message = output_state["messages"][-1]

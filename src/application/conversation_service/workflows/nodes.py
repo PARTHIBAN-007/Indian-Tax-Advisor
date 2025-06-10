@@ -10,27 +10,32 @@ from application.conversation_service.workflows.chains import (
 
 from application.conversation_service.workflows.state import AdvisorState
 
-from application.conversation_service.workflows.tools import retriever_tools , web_search_tools
+from application.conversation_service.workflows.tools import tool_node
+from loguru import logger
+tool_node = ToolNode(tool_node)
 
-retriever_node = ToolNode(retriever_tools)
-
-web_retriever_node = ToolNode(web_search_tools)
 
 async def conversation_node(state:AdvisorState,config:RunnableConfig):
-    summary = state.get("summary","")
+    logger.info("Conversation Node")
+    print(state["messages"])
+    logger.info("Before COncersafsg")
     conversation_chain = get_response_chain()
+    logger.info("Conversation Node")
+    
+
 
     response = await conversation_chain.ainvoke(
         {   
             "messages":state["messages"],
-            "summary":summary
         },
         config 
     )
+    print(response)
 
     return {"messages":response}
 
 async def summarize_conversation_node(state:AdvisorState,config:RunnableConfig):
+    logger.info("Conversation summry Node")
     summary = state.get("summary","")
     summary_chain = get_conversation_summary_chain(summary)
 
@@ -54,8 +59,9 @@ async def summarize_conversation_node(state:AdvisorState,config:RunnableConfig):
 
 
 async def summarize_context_node(state:AdvisorState,config:RunnableConfig):
+    logger.info("Summarize Retrieved Context Node")
     context_summary_chain = get_context_summary_chain()
-
+    print(state["messages"])
     response = await context_summary_chain.ainvoke(
         {
            "context": state["messages"][-1].content,

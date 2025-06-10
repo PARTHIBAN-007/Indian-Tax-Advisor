@@ -17,7 +17,7 @@ class Settings(BaseSettings):
 
 
     MONGO_URI: str = Field(
-        default="localhost:27017",
+        default="mongodb://localhost:64187/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.5.2",
         description="Connection URI for the local MongoDB Atlas instance.",
     )
     
