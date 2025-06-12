@@ -1,22 +1,18 @@
 from langchain_huggingface import HuggingFaceEmbeddings
-from langchain_mongodb import MongoDBAtlasVectorSearch
-from langchain_mongodb.retrievers import (
-    MongoDBAtlasHybridSearchRetriever,
-)
+from langchain_community.vectorstores import Qdrant
 from loguru import logger
-
+from langchain_qdrant import QdrantVectorStore
+from qdrant_client import QdrantClient
+from qdrant_client.models import Distance, VectorParams
 from config import settings
 
 from .embeddings import get_embedding_model
-
-Retriever = MongoDBAtlasHybridSearchRetriever
 
 
 def get_retriever(
     embedding_model_id: str,
     k: int = 3,
-    device: str = "cpu",
-) -> Retriever:
+    device: str = "cpu"):
     
     logger.info(
         f"Initializing retriever | model: {embedding_model_id} | device: {device} | top_k: {k}"
@@ -24,28 +20,22 @@ def get_retriever(
 
     embedding_model = get_embedding_model(embedding_model_id, device)
 
-    return get_hybrid_search_retriever(embedding_model, k)
+    return vector_search_retriever(embedding_model, k)
 
 
-def get_hybrid_search_retriever(
+def vector_search_retriever(
     embedding_model: HuggingFaceEmbeddings, k: int
-) -> MongoDBAtlasHybridSearchRetriever:
+) -> QdrantVectorStore :
+    logger.info("Initializing vector store and retriever ")
     
-    vectorstore = MongoDBAtlasVectorSearch.from_connection_string(
-        connection_string=settings.MONGO_URI,
+    
+    vector_store = QdrantVectorStore.from_existing_collection(
         embedding=embedding_model,
-        namespace=f"{settings.MONGO_DB_NAME}.{settings.MONGO_LONG_TERM_MEMORY_COLLECTION}",
-        text_key="chunk",
-        embedding_key="embedding",
-        relevance_score_fn="dotProduct",
+        collection_name=settings.QDRANT_COLLECTION_NAME,
+        api_key=settings.QDRANT_CLIENT_API_KEY,
+        url = settings.QDRANT_URI,
     )
 
-    retriever = MongoDBAtlasHybridSearchRetriever(
-        vectorstore=vectorstore,
-        search_index_name="hybrid_search_index",
-        top_k=k,
-        vector_penalty=50,
-        fulltext_penalty=50,
-    )
-
+    retriever = vector_store.as_retriever(search_type="mmr", search_kwargs={"k": 3})
+    print(retriever)
     return retriever

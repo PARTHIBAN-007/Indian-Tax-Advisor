@@ -8,6 +8,8 @@ load_dotenv()
 tailvy_api_key = os.getenv("TAVILY_API_KEY")
 groq_api_key = os.getenv("GROQ_API_KEY")
 comet_api_key = os.getenv("COMET_API_KEY")
+qdrant_url = os.getenv("QDRANT_URL")
+qdrant_api_key =  os.getenv("QDRANT_CLIENT_API_KEY")
 class Settings(BaseSettings):
 
     GROQ_API_KEY: str = groq_api_key
@@ -16,10 +18,9 @@ class Settings(BaseSettings):
     TAVILY_API_KEY : str = tailvy_api_key
 
 
-    MONGO_URI: str = Field(
-        default="mongodb://localhost:64187/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.5.2",
-        description="Connection URI for the local MongoDB Atlas instance.",
-    )
+    QDRANT_URI:str = qdrant_url
+    QDRANT_COLLECTION_NAME:str = "Indian_tax_assistant"
+    QDRANT_CLIENT_API_KEY:str = qdrant_api_key
     
     COMET_API_KEY: str = comet_api_key
     COMET_PROJECT: str = Field(
@@ -27,11 +28,7 @@ class Settings(BaseSettings):
         description="Project name for Comet ML and Opik tracking.",
     )
 
-    MONGO_DB_NAME: str = "indian_tax_system"
-    MONGO_STATE_CHECKPOINT_COLLECTION: str = "tax_state_checkpoints"
-    MONGO_STATE_WRITES_COLLECTION: str = "tax_state_writes"
-    MONGO_LONG_TERM_MEMORY_COLLECTION: str = "tax_long_term_memory"
-
+    
     TOTAL_MESSAGES_SUMMARY_TRIGGER: int = 30
     TOTAL_MESSAGES_AFTER_SUMMARY: int = 5
 

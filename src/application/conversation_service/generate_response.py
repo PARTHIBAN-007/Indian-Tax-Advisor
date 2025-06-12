@@ -7,7 +7,7 @@ from application.conversation_service.workflows.graph import create_workflow_gra
 from opik.integrations.langchain import OpikTracer
 from loguru import logger
 import os
-
+from langgraph.checkpoint.memory import MemorySaver
 import opik
 from loguru import logger
 from opik.configurator.configure import OpikConfigurator
@@ -55,36 +55,31 @@ async def get_response(
     configure()
 
     try:
-        async with AsyncMongoDBSaver.from_conn_string(
-            conn_string = settings.MONGO_URI,
-            db_name = settings.MONGO_DB_NAME,
-            checkpoint_collection_name = settings.MONGO_STATE_CHECKPOINT_COLLECTION,
-            writes_collection_name = settings.MONGO_STATE_WRITES_COLLECTION
-        ) as checkpointer:
-            
-
-            graph = graph_builder.compile(checkpointer=checkpointer)
-            opik_tracer = OpikTracer(graph=graph.get_graph(xray=True))            
         
-            thread_id = uuid.uuid4
-            config = {
-                "configurable" : {"thread_id":thread_id},
-                "callbacks": [opik_tracer],
-            }
-            print(config)
-            output_state = await graph.ainvoke(
-                input = {
-                    "messages" : __format_messages(messages=messages),
-                },
-                config = config
-            )
+        
+        memory = MemorySaver()
 
-            
+        graph = graph_builder.compile(checkpointer=memory)
+        opik_tracer = OpikTracer(graph=graph.get_graph(xray=True))            
+    
+        thread_id = uuid.uuid4
+        config = {
+            "configurable" : {"thread_id":thread_id},
+            "callbacks": [opik_tracer],
+        }
+        output_state = await graph.ainvoke(
+            input = {
+                "messages" : __format_messages(messages=messages),
+            },
+            config = config
+        )
+
+        
 
 
 
 
-            logger.info("_------------------OUptut-----------------------",output_state)
+        logger.info("_------------------OUptut-----------------------",output_state)
 
         last_message = output_state["messages"][-1]
         print(last_message)

@@ -17,6 +17,3 @@ def should_continue(state:AdvisorState):
         return "conversation_node"
     return "generate_response"
 
-
-def llm_tool_condtion(state:AdvisorState):
-    return "db_results"

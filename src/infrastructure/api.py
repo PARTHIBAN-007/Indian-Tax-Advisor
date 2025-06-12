@@ -16,6 +16,7 @@ from pydantic import BaseModel
 
 from application.conversation_service.generate_response import get_response
 from application.conversation_service.reset_conversation import reset_conversation_chain
+from application.conversation_service.embed_conversation import embed_conversation
 
 
 @asynccontextmanager
@@ -58,6 +59,13 @@ async def reset_conversation():
     try:
         result = await reset_conversation_chain()
         return result
+    except Exception as e:
+        raise HTTPException(status_code=500,detail=str(e))
+    
+@app.post("/save_docs")
+async def save_docs():
+    try:
+        embed_conversation()
     except Exception as e:
         raise HTTPException(status_code=500,detail=str(e))
     
