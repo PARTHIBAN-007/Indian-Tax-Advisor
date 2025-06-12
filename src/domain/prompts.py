@@ -13,6 +13,6 @@ if you found that you have adequate information to answer user question you can 
 """
 
 
-CONTEXT_SUMMARY_PROMPT = ""
+CONTEXT_SUMMARY_PROMPT = "Summarize the content properly to make it proper context and provide more importance to numbers.don't negelct the importance of importance provide a quick summary for the qiven text content"
 
 EXTEND_CONTEXT_SUMMARY_PROMPT = ""
