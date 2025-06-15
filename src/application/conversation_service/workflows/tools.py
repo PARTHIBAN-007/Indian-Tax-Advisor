@@ -13,7 +13,7 @@ os.environ["TAVILY_API_KEY"] = tailvy_api_key
 from application.conversation_service.workflows.state import AdvisorState
 
 @tool
-def retriever_tool(query: str) -> str:
+def retriever_tool(query: str):
     """Search the Vector Database to understand the user preferences and specific information about the user."""
     logger.info("Retriever Tool")
     retriever = get_retriever(
@@ -25,7 +25,7 @@ def retriever_tool(query: str) -> str:
     # ✅ Don't modify state or call AdvisorState.append
     logger.info(f"Retrieved Docs: {retrieved_docs}")
     
-    return str(retrieved_docs)
+    return retrieved_docs
 
 @tool
 def web_search_tool(query:str)->str:
@@ -37,9 +37,8 @@ def web_search_tool(query:str)->str:
      max_results=3,
     include_answer=True).invoke(input=query)
     logger.info("Retrieved web search data")
-    AdvisorState["messages"].append(tavily_search_docs)
 
-    return str(tavily_search_docs)
+    return tavily_search_docs
 
 
 

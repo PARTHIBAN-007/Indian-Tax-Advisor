@@ -13,6 +13,5 @@ if you found that you have adequate information to answer user question you can 
 """
 
 
-CONTEXT_SUMMARY_PROMPT = "Summarize the content properly to make it proper context and provide more importance to numbers.don't negelct the importance of importance provide a quick summary for the qiven text content"
+CONTEXT_SUMMARY_PROMPT = "Summarize the content properly to make it proper context and provide more importance to numbers.don't negelct the importance of importance provide a quick summary for the qiven text content.If there is no content available tell them to use other tools or no context by using this tool as=nd ask it to return your response wothout this tool"
 
-EXTEND_CONTEXT_SUMMARY_PROMPT = ""

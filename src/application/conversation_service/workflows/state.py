@@ -4,11 +4,13 @@ from langchain_core.messages import HumanMessage, AIMessage
 from typing import TypedDict, List, Union
 from pydantic import BaseModel
 from langchain_core.messages import BaseMessage
+from langgraph.graph.message import add_messages
+
 
 class AdvisorState(TypedDict):
     """
     State for the AdvisorState worklow
     """
-    messages: List[BaseMessage] = []
+    messages: Annotated[Sequence[BaseMessage], add_messages]
 
 

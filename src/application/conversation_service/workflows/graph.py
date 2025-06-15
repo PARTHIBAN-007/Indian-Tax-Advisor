@@ -22,8 +22,8 @@ def create_workflow_graph():
         tools_condition
     )
     
-    graph_builder.add_edge("tools","summarize_context_node")
-    graph_builder.add_edge("summarize_context_node","conversation_node")
+    graph_builder.add_edge("tools","conversation_node")
+    # graph_builder.add_edge("summarize_context_node","conversation_node")
 
     return graph_builder
 

@@ -20,8 +20,7 @@ async def conversation_node(state:AdvisorState,config:RunnableConfig):
     logger.info("Conversation Node")
     conversation_chain = get_response_chain()
     
-    for m in state["messages"]:
-        print(f"{type(m).__name__}: {m.content}")
+   
 
 
     response = await conversation_chain.ainvoke(
@@ -32,6 +31,8 @@ async def conversation_node(state:AdvisorState,config:RunnableConfig):
     )
     print(response)
     state["messages"].append(response)
+    print("Response Added ?")
+    print(state["messages"])
 
     return state
 
@@ -57,6 +58,7 @@ from langchain_core.messages import ToolMessage, AIMessage
 
 async def summarize_context_node(state: AdvisorState, config: RunnableConfig):
     logger.info("Summarize Retrieved Context Node")
+    print(state["messages"])
 
    
     tool_messages = [
