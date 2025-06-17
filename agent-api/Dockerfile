@@ -5,6 +5,6 @@ WORKDIR /app
 COPY uv.lock pyproject.toml README.md ./
 RUN uv sync --frozen --no-cache
 COPY . .
-CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8000"]
-
+ENV PYTHONPATH="${PYTHONPATH}:/app/src"
+CMD ["uvicorn", "infrastructure.api:app", "--reload", "--host", "0.0.0.0", "--port", "8000"]
 
