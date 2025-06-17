@@ -10,9 +10,7 @@ groq_api_key = os.getenv("GROQ_API_KEY")
 comet_api_key = os.getenv("COMET_API_KEY")
 qdrant_url = os.getenv("QDRANT_URL")
 qdrant_api_key =  os.getenv("QDRANT_CLIENT_API_KEY")
-gemini_api_key = os.getenv("GOOGLE_API_KEY")
 class Settings(BaseSettings):
-    GOOGLE_API_KEY:str = gemini_api_key
 
     GROQ_API_KEY: str = groq_api_key
     GROQ_LLM_MODEL:str = "meta-llama/llama-4-maverick-17b-128e-instruct"

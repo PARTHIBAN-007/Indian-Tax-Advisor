@@ -12,7 +12,6 @@ from fastapi.middleware.cors import  CORSMiddleware
 from opik.integrations.langchain import OpikTracer
 from pydantic import BaseModel
 
-from application.conversation_service.reset_conversation import reset_conversation_chain
 
 
 @asynccontextmanager
@@ -84,13 +83,6 @@ async def user_data(data:Formdata):
 
 
     
-@app.post("/reset-memory")
-async def reset_conversation():
-    try:
-        result = await reset_conversation_chain()
-        return result
-    except Exception as e:
-        raise HTTPException(status_code=500,detail=str(e))
     
 @app.post("/save_docs")
 async def save_docs():

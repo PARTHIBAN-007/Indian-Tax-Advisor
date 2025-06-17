@@ -1,0 +1,25 @@
+[project]
+name = "agent-api"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12.4"
+dependencies = [
+    "fastapi[standard]>=0.115.12",
+    "ipykernel>=6.29.5",
+    "langchain>=0.3.25",
+    "langchain-community>=0.3.25",
+    "langchain-core>=0.3.65",
+    "langchain-groq>=0.3.2",
+    "langchain-huggingface>=0.3.0",
+    "langchain-qdrant>=0.2.0",
+    "langgraph>=0.4.8",
+    "loguru>=0.7.3",
+    "opik>=1.7.34",
+    "pydantic>=2.11.7",
+    "pydantic-settings>=2.9.1",
+    "qdrant-client>=1.14.3",
+    "sentence-transformers>=4.1.0",
+    "tavily-python>=0.7.6",
+    "uvicorn>=0.34.3",
+]

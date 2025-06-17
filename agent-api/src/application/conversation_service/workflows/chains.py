@@ -2,7 +2,7 @@ from langchain_groq import ChatGroq
 from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
 from config import settings
 from loguru import logger
-from domain.prompts import SYSTEM_PROMPT ,CONTEXT_SUMMARY_PROMPT,EXTEND_CONTEXT_SUMMARY_PROMPT
+from domain.prompts import SYSTEM_PROMPT ,CONTEXT_SUMMARY_PROMPT
 from application.conversation_service.workflows.tools import tool_node
 
 

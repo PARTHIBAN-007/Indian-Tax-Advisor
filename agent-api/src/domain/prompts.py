@@ -21,4 +21,3 @@ the content that you are having is a exchange of conversation between a user and
 and these things need to be summarized as user personal details and preferences.
 """
 
-EXTEND_CONTEXT_SUMMARY_PROMPT = ""

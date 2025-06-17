@@ -2,7 +2,6 @@ import uuid
 from typing import Union, Any
 from config import settings
 from langchain_core.messages import AIMessage , HumanMessage 
-from langgraph.checkpoint.mongodb.aio import AsyncMongoDBSaver
 from application.conversation_service.workflows.graph import create_workflow_graph
 from application.conversation_service.workflows.state import AdvisorState
 from application.conversation_service.workflows.chains import get_conversation_summary_chain
@@ -23,15 +22,10 @@ from config import settings
 
 def configure() -> None:
     if settings.COMET_API_KEY and settings.COMET_PROJECT:
-        try:
-            client = OpikConfigurator(api_key=settings.COMET_API_KEY)
-            default_workspace = client._get_default_workspace()
-        except Exception:
-            logger.warning(
-                "Default workspace not found. Setting workspace to None and enabling interactive mode."
-            )
-            default_workspace = None
-
+        print(settings.COMET_API_KEY)
+        client = OpikConfigurator(api_key=settings.COMET_API_KEY)
+        default_workspace = client._get_default_workspace()
+       
         os.environ["OPIK_PROJECT_NAME"] = settings.COMET_PROJECT
 
         try:
