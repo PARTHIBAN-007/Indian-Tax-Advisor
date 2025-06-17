@@ -16,7 +16,7 @@ services:
       context: ./agent-ui
       dockerfile: Dockerfile
     ports:
-      - "8000:8000"
+      - "3000:3000"
     volumes:
       - ./agent-ui:/app
       - /app/node_modules
