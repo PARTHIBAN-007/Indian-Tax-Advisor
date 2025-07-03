@@ -32,7 +32,6 @@ volumes:
   config:
 
 networks:
-
   agent-network:
     name: agent-network
   
