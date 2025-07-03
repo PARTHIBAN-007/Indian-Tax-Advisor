@@ -1,4 +1,4 @@
-#  Indian AI Finance Assistant
+#  MoneyMentor-Indian AI Finance Assistant
 
 An intelligent AI-powered assistant designed to help users with queries about the Indian Tax System. It uses Retrieval-Augmented Generation (RAG), memory features, web search, and agentic evaluation to provide contextual, accurate, and insightful responses.
 
